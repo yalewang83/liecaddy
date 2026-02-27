@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,306 +7,66 @@
   <title>Golf Lie Caddy</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;600&display=swap');
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      min-height: 100vh;
-      background: linear-gradient(160deg, #0a1f0a 0%, #0f2d14 40%, #0a1a0a 100%);
-      font-family: 'EB Garamond', serif;
-      color: #e8dfc4;
-      padding-bottom: 60px;
-    }
-
-    .grid-overlay {
-      position: fixed; inset: 0; pointer-events: none; opacity: 0.03;
-      background-image:
-        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 3px),
-        repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 3px);
-    }
-
-    header {
-      text-align: center;
-      padding: 48px 24px 32px;
-    }
-
-    .badge {
-      display: inline-block;
-      border: 1px solid rgba(196,160,80,0.4);
-      padding: 5px 20px;
-      margin-bottom: 16px;
-      letter-spacing: 0.3em;
-      font-size: 10px;
-      color: #c4a050;
-      text-transform: uppercase;
-      font-family: 'Cinzel', serif;
-    }
-
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(32px, 6vw, 68px);
-      font-weight: 600;
-      color: #f0e8c8;
-      letter-spacing: 0.05em;
-      line-height: 1.1;
-      margin-bottom: 10px;
-    }
-
-    .subtitle {
-      color: #8aab7a;
-      font-size: 15px;
-      letter-spacing: 0.1em;
-      font-style: italic;
-    }
-
-    .divider {
-      width: 60px; height: 2px;
-      background: linear-gradient(90deg, transparent, #c4a050, transparent);
-      margin: 20px auto 0;
-    }
-
-    .container {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    .section-label {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      color: #c4a050;
-      text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-
+    body { min-height: 100vh; background: linear-gradient(160deg, #0a1f0a 0%, #0f2d14 40%, #0a1a0a 100%); font-family: 'EB Garamond', serif; color: #e8dfc4; padding-bottom: 60px; }
+    .grid-overlay { position: fixed; inset: 0; pointer-events: none; opacity: 0.03; background-image: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 3px), repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 3px); }
+    header { text-align: center; padding: 48px 24px 32px; }
+    .badge { display: inline-block; border: 1px solid rgba(196,160,80,0.4); padding: 5px 20px; margin-bottom: 16px; letter-spacing: 0.3em; font-size: 10px; color: #c4a050; text-transform: uppercase; font-family: 'Cinzel', serif; }
+    h1 { font-family: 'Cinzel', serif; font-size: clamp(32px, 6vw, 68px); font-weight: 600; color: #f0e8c8; letter-spacing: 0.05em; line-height: 1.1; margin-bottom: 10px; }
+    .subtitle { color: #8aab7a; font-size: 15px; letter-spacing: 0.1em; font-style: italic; }
+    .divider { width: 60px; height: 2px; background: linear-gradient(90deg, transparent, #c4a050, transparent); margin: 20px auto 0; }
+    .container { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    .section-label { display: block; font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.25em; color: #c4a050; text-transform: uppercase; margin-bottom: 14px; }
     section { margin-bottom: 28px; }
-
-    .lie-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .lie-btn {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(196,160,80,0.2);
-      border-radius: 4px;
-      padding: 16px;
-      cursor: pointer;
-      text-align: left;
-      color: #8aab7a;
-      transition: all 0.2s ease;
-      position: relative;
-      font-family: 'EB Garamond', serif;
-    }
-
+    .lie-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .lie-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(196,160,80,0.2); border-radius: 4px; padding: 16px; cursor: pointer; text-align: left; color: #8aab7a; transition: all 0.2s ease; position: relative; font-family: 'EB Garamond', serif; }
     .lie-btn:hover { border-color: rgba(196,160,80,0.4); color: #c4d4b8; }
-
-    .lie-btn.active {
-      background: rgba(196,160,80,0.15);
-      border-color: #c4a050;
-      color: #f0e8c8;
-    }
-
+    .lie-btn.active { background: rgba(196,160,80,0.15); border-color: #c4a050; color: #f0e8c8; }
     .lie-btn .lie-icon { font-size: 22px; margin-bottom: 6px; }
     .lie-btn .lie-name { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
     .lie-btn .lie-desc { font-size: 11px; opacity: 0.7; font-style: italic; }
-
-    .active-dot {
-      display: none;
-      position: absolute; top: 10px; right: 12px;
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #c4a050;
-    }
+    .active-dot { display: none; position: absolute; top: 10px; right: 12px; width: 8px; height: 8px; border-radius: 50%; background: #c4a050; }
     .lie-btn.active .active-dot { display: block; }
-
-    .controls-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
+    .controls-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
     .severity-btns { display: flex; gap: 8px; }
-
-    .sev-btn {
-      flex: 1;
-      padding: 10px 4px;
-      font-size: 13px;
-      font-family: 'EB Garamond', serif;
-      border: 1px solid rgba(196,160,80,0.2);
-      background: rgba(255,255,255,0.03);
-      color: #8aab7a;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
+    .sev-btn { flex: 1; padding: 10px 4px; font-size: 13px; font-family: 'EB Garamond', serif; border: 1px solid rgba(196,160,80,0.2); background: rgba(255,255,255,0.03); color: #8aab7a; border-radius: 4px; cursor: pointer; transition: all 0.2s; }
     .sev-btn:hover { border-color: rgba(196,160,80,0.4); color: #c4d4b8; }
-
-    .sev-btn.active {
-      border-color: #c4a050;
-      background: rgba(196,160,80,0.15);
-      color: #f0e8c8;
-    }
-
-    select, input {
-      width: 100%;
-      padding: 10px 12px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(196,160,80,0.3);
-      color: #e8dfc4;
-      border-radius: 4px;
-      font-size: 14px;
-      font-family: 'EB Garamond', serif;
-      outline: none;
-      cursor: pointer;
-    }
-
+    .sev-btn.active { border-color: #c4a050; background: rgba(196,160,80,0.15); color: #f0e8c8; }
+    select, input { width: 100%; padding: 10px 12px; background: rgba(255,255,255,0.05); border: 1px solid rgba(196,160,80,0.3); color: #e8dfc4; border-radius: 4px; font-size: 14px; font-family: 'EB Garamond', serif; outline: none; cursor: pointer; }
     select option { background: #0f2d14; }
-
     input::placeholder { color: rgba(232,223,196,0.35); font-style: italic; }
-
-    .cta-btn {
-      width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #c4a050 0%, #e8c870 50%, #c4a050 100%);
-      border: none;
-      border-radius: 4px;
-      color: #0a1f0a;
-      font-size: 14px;
-      font-family: 'Cinzel', serif;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-bottom: 32px;
-    }
-
-    .cta-btn:disabled {
-      background: rgba(196,160,80,0.1);
-      color: #5a7050;
-      cursor: not-allowed;
-    }
-
+    .cta-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #c4a050 0%, #e8c870 50%, #c4a050 100%); border: none; border-radius: 4px; color: #0a1f0a; font-size: 14px; font-family: 'Cinzel', serif; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease; margin-bottom: 32px; }
+    .cta-btn:disabled { background: rgba(196,160,80,0.1); color: #5a7050; cursor: not-allowed; }
     .cta-btn:not(:disabled):hover { opacity: 0.9; transform: translateY(-1px); }
-
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #8aab7a;
-    }
-
-    .loading .spin {
-      font-size: 32px;
-      display: inline-block;
-      animation: spin 2s linear infinite;
-      margin-bottom: 12px;
-    }
-
-    .loading p {
-      letter-spacing: 0.15em;
-      font-size: 14px;
-      font-style: italic;
-    }
-
+    .loading { text-align: center; padding: 40px; color: #8aab7a; }
+    .loading .spin { font-size: 32px; display: inline-block; animation: spin 2s linear infinite; margin-bottom: 12px; }
+    .loading p { letter-spacing: 0.15em; font-size: 14px; font-style: italic; }
     @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-    .error-box {
-      padding: 16px;
-      background: rgba(200,60,60,0.1);
-      border: 1px solid rgba(200,60,60,0.3);
-      border-radius: 4px;
-      color: #e88a8a;
-      margin-bottom: 20px;
-      font-style: italic;
-    }
-
-    .advice-panel {
-      border: 1px solid rgba(196,160,80,0.35);
-      border-radius: 6px;
-      overflow: hidden;
-      animation: fadeIn 0.5s ease;
-    }
-
+    .error-box { padding: 16px; background: rgba(200,60,60,0.1); border: 1px solid rgba(200,60,60,0.3); border-radius: 4px; color: #e88a8a; margin-bottom: 20px; font-style: italic; }
+    .advice-panel { border: 1px solid rgba(196,160,80,0.35); border-radius: 6px; overflow: hidden; animation: fadeIn 0.5s ease; }
     @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-
-    .advice-header {
-      background: linear-gradient(90deg, rgba(196,160,80,0.2), rgba(196,160,80,0.05));
-      border-bottom: 1px solid rgba(196,160,80,0.25);
-      padding: 16px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .advice-header .small-label {
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      color: #c4a050;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .advice-header .lie-summary {
-      font-size: 16px;
-      color: #f0e8c8;
-    }
-
-    .advice-section {
-      padding: 20px 24px;
-      border-bottom: 1px solid rgba(196,160,80,0.1);
-    }
-
+    .advice-header { background: linear-gradient(90deg, rgba(196,160,80,0.2), rgba(196,160,80,0.05)); border-bottom: 1px solid rgba(196,160,80,0.25); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .advice-header .small-label { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.25em; color: #c4a050; text-transform: uppercase; margin-bottom: 4px; }
+    .advice-header .lie-summary { font-size: 16px; color: #f0e8c8; }
+    .advice-section { padding: 20px 24px; border-bottom: 1px solid rgba(196,160,80,0.1); }
     .advice-section:last-child { border-bottom: none; }
     .advice-section:nth-child(even) { background: rgba(255,255,255,0.01); }
-
-    .section-title {
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: 0.25em;
-      color: #c4a050;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-
-    .section-content {
-      font-size: 15px;
-      line-height: 1.8;
-      color: #d4cbac;
-    }
-
+    .section-title { font-family: 'Cinzel', serif; font-size: 10px; letter-spacing: 0.25em; color: #c4a050; text-transform: uppercase; margin-bottom: 10px; }
+    .section-content { font-size: 15px; line-height: 1.8; color: #d4cbac; }
     .section-content p { margin-bottom: 6px; }
-
-    footer {
-      text-align: center;
-      margin-top: 48px;
-      color: rgba(138,171,122,0.4);
-      font-size: 12px;
-      letter-spacing: 0.15em;
-      font-style: italic;
-    }
-
+    footer { text-align: center; margin-top: 48px; color: rgba(138,171,122,0.4); font-size: 12px; letter-spacing: 0.15em; font-style: italic; }
     .hidden { display: none; }
   </style>
 </head>
 <body>
   <div class="grid-overlay"></div>
-
   <header>
     <div class="badge">Est. On The Fairway</div>
     <h1>Golf Lie Caddy</h1>
     <p class="subtitle">Expert advice for every uneven lie</p>
     <div class="divider"></div>
   </header>
-
   <div class="container">
-
-    <!-- Lie Selector -->
     <section>
       <span class="section-label">Select Your Lie(s)</span>
       <div class="lie-grid">
@@ -335,8 +96,6 @@
         </button>
       </div>
     </section>
-
-    <!-- Controls -->
     <div class="controls-row">
       <div>
         <span class="section-label">Slope Severity</span>
@@ -359,170 +118,78 @@
         </select>
       </div>
     </div>
-
-    <!-- Notes -->
     <section>
       <span class="section-label">Additional Notes (optional)</span>
       <input type="text" id="extraNotes" placeholder="e.g. tight lie, rough, wind in face, 150 yards out..." />
     </section>
-
-    <!-- Button -->
-    <button class="cta-btn" id="ctaBtn" disabled onclick="getAdvice()">
-      Select a Lie to Continue
-    </button>
-
-    <!-- Loading -->
+    <button class="cta-btn" id="ctaBtn" disabled onclick="getAdvice()">Select a Lie to Continue</button>
     <div id="loading" class="loading hidden">
       <div class="spin">⛳</div>
       <p>Your caddy is reading the lie...</p>
     </div>
-
-    <!-- Error -->
     <div id="errorBox" class="error-box hidden"></div>
-
-    <!-- Advice -->
     <div id="advicePanel" class="hidden"></div>
-
     <footer>⛳ Golf Lie Caddy · Play every lie with confidence</footer>
   </div>
-
   <script>
     const selectedLies = new Set();
     let severity = "Moderate";
-
     function toggleLie(btn) {
       const lie = btn.dataset.lie;
-      if (selectedLies.has(lie)) {
-        selectedLies.delete(lie);
-        btn.classList.remove("active");
-      } else {
-        selectedLies.add(lie);
-        btn.classList.add("active");
-      }
+      if (selectedLies.has(lie)) { selectedLies.delete(lie); btn.classList.remove("active"); }
+      else { selectedLies.add(lie); btn.classList.add("active"); }
       updateCTA();
       document.getElementById("advicePanel").classList.add("hidden");
     }
-
     function setSeverity(btn) {
       document.querySelectorAll(".sev-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       severity = btn.textContent;
     }
-
     function updateCTA() {
       const btn = document.getElementById("ctaBtn");
-      if (selectedLies.size > 0) {
-        btn.disabled = false;
-        btn.textContent = "🏌️ Get Caddy Advice";
-      } else {
-        btn.disabled = true;
-        btn.textContent = "Select a Lie to Continue";
-      }
+      if (selectedLies.size > 0) { btn.disabled = false; btn.textContent = "🏌️ Get Caddy Advice"; }
+      else { btn.disabled = true; btn.textContent = "Select a Lie to Continue"; }
     }
-
-    const lieLabels = {
-      uphill: "Uphill",
-      downhill: "Downhill",
-      sidehill_above: "Sidehill (Ball Above Feet)",
-      sidehill_below: "Sidehill (Ball Below Feet)"
-    };
-
+    const lieLabels = { uphill: "Uphill", downhill: "Downhill", sidehill_above: "Sidehill (Ball Above Feet)", sidehill_below: "Sidehill (Ball Below Feet)" };
     async function getAdvice() {
       if (selectedLies.size === 0) return;
-
       const club = document.getElementById("clubSelect").value;
       const notes = document.getElementById("extraNotes").value;
       const lies = [...selectedLies].map(l => lieLabels[l]).join(" + ");
-
       document.getElementById("loading").classList.remove("hidden");
       document.getElementById("errorBox").classList.add("hidden");
       document.getElementById("advicePanel").classList.add("hidden");
-
-      const prompt = `You are an expert golf caddy with decades of experience on tour. A golfer is facing the following lie condition(s): ${lies} (severity: ${severity}). They are hitting a ${club}. ${notes ? "Additional notes: " + notes : ""}
-
-Please give precise, actionable caddy advice. Structure your response with these exact sections using these headers:
-
-**THE SITUATION**
-Brief description of what this lie does to ball flight and difficulty.
-
-**SETUP ADJUSTMENTS**
-Bullet points of exactly how to set up (stance width, ball position, weight distribution, alignment).
-
-**SWING KEYS**
-2-3 critical swing thoughts for this lie.
-
-**SHOT SHAPE & CLUB SELECTION**
-Expected ball flight, recommended club adjustment (more/less club), and any aim adjustments.
-
-**CADDY TIP**
-One memorable pro tip to keep in mind.
-
-Be specific, practical, and confident. Speak like a seasoned tour caddy.`;
-
+      const prompt = `You are an expert golf caddy with decades of experience on tour. A golfer is facing the following lie condition(s): ${lies} (severity: ${severity}). They are hitting a ${club}. ${notes ? "Additional notes: " + notes : ""}\n\nPlease give precise, actionable caddy advice. Structure your response with these exact sections using these headers:\n\n**THE SITUATION**\nBrief description of what this lie does to ball flight and difficulty.\n\n**SETUP ADJUSTMENTS**\nBullet points of exactly how to set up (stance width, ball position, weight distribution, alignment).\n\n**SWING KEYS**\n2-3 critical swing thoughts for this lie.\n\n**SHOT SHAPE & CLUB SELECTION**\nExpected ball flight, recommended club adjustment (more/less club), and any aim adjustments.\n\n**CADDY TIP**\nOne memorable pro tip to keep in mind.\n\nBe specific, practical, and confident. Speak like a seasoned tour caddy.`;
       try {
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
+        const response = await fetch("/.netlify/functions/caddy", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 1000,
-            messages: [{ role: "user", content: prompt }]
-          })
+          body: JSON.stringify({ messages: [{ role: "user", content: prompt }] })
         });
-
         const data = await response.json();
         const text = data.content?.map(b => b.text || "").join("\n") || "";
-
-        renderAdvice(text, lies, club);
+        renderAdvice(text, lies);
       } catch (e) {
         document.getElementById("errorBox").textContent = "Failed to get caddy advice. Please try again.";
         document.getElementById("errorBox").classList.remove("hidden");
       }
-
       document.getElementById("loading").classList.add("hidden");
     }
-
-    const sectionIcons = {
-      "THE SITUATION": "🎯",
-      "SETUP ADJUSTMENTS": "🦶",
-      "SWING KEYS": "🔑",
-      "SHOT SHAPE & CLUB SELECTION": "🏌️",
-      "CADDY TIP": "⭐"
-    };
-
-    function renderAdvice(text, lies, club) {
+    const sectionIcons = { "THE SITUATION": "🎯", "SETUP ADJUSTMENTS": "🦶", "SWING KEYS": "🔑", "SHOT SHAPE & CLUB SELECTION": "🏌️", "CADDY TIP": "⭐" };
+    function renderAdvice(text, lies) {
       const panel = document.getElementById("advicePanel");
       const sectionRegex = /\*\*(THE SITUATION|SETUP ADJUSTMENTS|SWING KEYS|SHOT SHAPE & CLUB SELECTION|CADDY TIP)\*\*([\s\S]*?)(?=\*\*[A-Z]|$)/g;
-      let sections = [];
-      let match;
-      while ((match = sectionRegex.exec(text)) !== null) {
-        sections.push({ title: match[1], content: match[2].trim() });
-      }
+      let sections = [], match;
+      while ((match = sectionRegex.exec(text)) !== null) sections.push({ title: match[1], content: match[2].trim() });
       if (sections.length === 0) sections = [{ title: "CADDY ADVICE", content: text }];
-
-      const club_val = document.getElementById("clubSelect").value;
-
-      let html = `
-        <div class="advice-header">
-          <div>
-            <div class="small-label">Caddy's Read</div>
-            <div class="lie-summary">${lies} · ${severity} · ${club_val}</div>
-          </div>
-          <div style="font-size:28px">📋</div>
-        </div>
-      `;
-
+      const club = document.getElementById("clubSelect").value;
+      let html = `<div class="advice-header"><div><div class="small-label">Caddy's Read</div><div class="lie-summary">${lies} · ${severity} · ${club}</div></div><div style="font-size:28px">📋</div></div>`;
       sections.forEach(s => {
         const icon = sectionIcons[s.title] || "•";
         const lines = s.content.split("\n").map(line => `<p>${line}</p>`).join("");
-        html += `
-          <div class="advice-section">
-            <div class="section-title">${icon} ${s.title}</div>
-            <div class="section-content">${lines}</div>
-          </div>
-        `;
+        html += `<div class="advice-section"><div class="section-title">${icon} ${s.title}</div><div class="section-content">${lines}</div></div>`;
       });
-
       panel.innerHTML = html;
       panel.classList.remove("hidden");
       panel.scrollIntoView({ behavior: "smooth", block: "start" });
